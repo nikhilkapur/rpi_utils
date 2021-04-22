@@ -8,11 +8,13 @@ class TemperatureSensor:
         
         Example:
             ts = rpi_utils.TemperatureSensor()
-            temp_c, temp_f = ts.read_temp()
+            temp = ts.read_temperature()
     '''
-    def read_temp(self):
-        ''' Returns current temp in C and F (as a tupple)
-            temp_c, temp_f = ts.read_temp()
+    def read_temperature(self):
+        ''' Returns current temp in C and F (as a dict)
+            { 'temp_c':	2.937,
+              'temp_f': 37.2866
+            }
         '''
         lines = self._read_temp_raw()
         while lines[0].strip()[-3:] != 'YES':
@@ -23,7 +25,8 @@ class TemperatureSensor:
             temp_string = lines[1][equals_pos+2:]
             temp_c = float(temp_string) / 1000.0
             temp_f = temp_c * 9.0 / 5.0 + 32.0
-            return temp_c, temp_f
+            temps = {'temp_c': temp_c, 'temp_f': temp_f}
+            return temps
         else:
             raise ValueError("Couldn't parse temperature file")
 
