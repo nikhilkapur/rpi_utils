@@ -42,7 +42,7 @@ class TemperatureSensor:
  
 
 class Relay:
-    def __init__(self, trig_pin, on_level='HIGH', gpio_mode=None, gpio_warnings=None):
+    def __init__(self, trig_pin, on_level='HIGH', gpio_mode=GPIO.BCM, gpio_warnings=None):
         self.trig_pin = trig_pin
 
         if gpio_mode != None: GPIO.setmode(gpio_mode)
@@ -76,7 +76,7 @@ class Relay:
 
 # Code based on https://electrosome.com/hc-sr04-ultrasonic-sensor-raspberry-pi/
 class DistanceMeasurer:
-    def __init__(self, trig_pin, echo_pin, settle_time=1, range_min=2, range_max=500, gpio_mode=None, gpio_warnings=None):
+    def __init__(self, trig_pin, echo_pin, settle_time=1, range_min=2, range_max=500, gpio_mode=GPIO.BCM, gpio_warnings=None):
         self.trig_pin = trig_pin
         self.echo_pin = echo_pin
         self.settle_time = settle_time
@@ -93,6 +93,9 @@ class DistanceMeasurer:
     # is still using GPIO port. Better handled by the calling program
     #def __del__(self):
     #    GPIO.cleanup()
+
+    def cleanup(self):
+        GPIO.cleanup()
 
     def get_dist(self):
         GPIO.output(self.trig_pin, False)               #Set trig_pin as LOW
