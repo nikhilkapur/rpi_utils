@@ -5,11 +5,13 @@ import json
 
 # Ensure that the rpi_utils library is in search path
 sys.path.append(os.path.dirname(__file__) + '/..')
-from rpi_utils import TemperDistanceMeasureratureSensor
+from rpi_utils import DistanceMeasurer
 
 trig_pin = 15
 echo_pin = 18
 dm = DistanceMeasurer(trig_pin, echo_pin)
-distance = dm.get_dist_with_check()
+#distance = dm.get_dist_with_check()
+distance = dm.get_dist()
+dm.cleanup()
 
 pprint.pprint(distance)
