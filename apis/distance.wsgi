@@ -19,10 +19,13 @@ def distance():
     trig_pin = 15
     echo_pin = 18
     dm = DistanceMeasurer(trig_pin, echo_pin)
-    distance = dm.get_dist_with_check()
-    return distance
+    #distance = dm.get_dist_with_check()
+    distance = dm.get_dist()
+    dm.cleanup()
+    return str(distance)
 
 if __name__ == '__main__':
     # For testing from command line
     with application.app_context():
-        pprint.pprint(distance().get_data())
+        pprint.pprint(distance())
+
