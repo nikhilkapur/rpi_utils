@@ -11,16 +11,15 @@ from rpi_utils import TemperatureSensor
 application = flask.Flask(__name__)
 
 @application.route('/')
-def temp():
+def temperature():
     '''' Use the rpi_utils libary to get temperature.
          Returns a jsonified dictionary containing temperature in C and F
     '''
     ts = TemperatureSensor()
-    temp_c, temp_f = ts.read_temp()
-    temps = {'temp_c': temp_c, 'temp_f': temp_f}
+    temps = ts.read_temperature()
     return flask.jsonify(temps)
 
 if __name__ == '__main__':
     # For testing from command line
     with application.app_context():
-        pprint.pprint(temp().get_data())
+        pprint.pprint(temperature().get_data())
