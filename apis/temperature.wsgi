@@ -9,6 +9,7 @@ sys.path.append(os.path.dirname(__file__) + '/..')
 from rpi_utils import TemperatureSensor
 
 application = flask.Flask(__name__)
+application.debug = True
 
 @application.route('/')
 def temperature():
